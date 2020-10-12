@@ -22,10 +22,10 @@ public class AppUser {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     private String id;
 
-    @Size(min = 4, max = 16, message = "required at least 4 characters")
+    @Size(min = 4, max = 16, message = "required 4-16 characters")
     private String userName;
 
-    @PhoneNumber(message = "invalid")
+    @PhoneNumber(message = "only BY phonenumbers starting with 33 , 44 , 29 , 25")
     private String phoneNumber;
 
     @Email(message = "valid email plz")
