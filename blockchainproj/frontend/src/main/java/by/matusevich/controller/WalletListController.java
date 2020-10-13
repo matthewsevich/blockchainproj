@@ -33,7 +33,6 @@ public class WalletListController {
         log.info("show wallet list by owner ID:{}", ownerId);
         modelAndView.setViewName("wallets");
         modelAndView.addObject("wallets", wallets);
-
         return modelAndView;
     }
 

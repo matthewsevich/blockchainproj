@@ -7,6 +7,8 @@ import by.matusevich.repository.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MiningBlockService {
 
@@ -51,5 +53,13 @@ public class MiningBlockService {
                             block.toString()));
         }
         return block;
+    }
+
+    public List<Block> getAll() {
+        return (List<Block>) blockRepo.findAll();
+    }
+
+    public Block findBlockById(long id) {
+        return blockRepo.findById(id).orElse(null);
     }
 }

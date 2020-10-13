@@ -16,7 +16,6 @@ public class BalanceController {
     @Autowired
     WalletService walletService;
 
-
     @GetMapping("/wallets/{walletId}/balance.html")
     public ModelAndView walletBalance(
             ModelAndView modelAndView,

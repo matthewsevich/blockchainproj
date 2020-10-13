@@ -37,6 +37,7 @@ public class NewTransactionController {
             Model model) {
         log.info("New transaction: {}", transaction);
         if (((walletService.get(transaction.getReceiverId())) != null)
+                && (transaction.getValue() > 0)
                 && ((walletService.getBalance(walletId)) >= transaction.getValue())
                 && (transaction.getValue() < 100)
                 && (transactionService.createNewTransaction(walletId, transaction))) {
