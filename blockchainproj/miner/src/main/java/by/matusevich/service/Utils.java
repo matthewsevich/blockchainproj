@@ -41,14 +41,7 @@ public class Utils {
         if (firstBlock.getBlockId() != 0) {
             return false;
         }
-        if (!firstBlock.getPreviousHash().equals("0")) {
-            return false;
-        }
-        if (firstBlock.getHash() == null ||
-                !Utils.calculateHash(firstBlock.toString()).equals(firstBlock.getHash())) {
-            return false;
-        }
-        return true;
+        return firstBlock.getPreviousHash().equals("0");
     }
 
     public boolean isValidNewBlock(Block newBlock, Block previousBlock) {
@@ -56,21 +49,14 @@ public class Utils {
             if (previousBlock.getBlockId() + 1 != newBlock.getBlockId()) {
                 return false;
             }
-            if (newBlock.getPreviousHash() == null ||
-                    !newBlock.getPreviousHash().equals(previousBlock.getHash())) {
-                return false;
-            }
-            if (newBlock.getHash() == null ||
-                    !Utils.calculateHash(newBlock.toString()).equals(newBlock.getHash())) {
-                return false;
-            }
-            return true;
+            return newBlock.getPreviousHash() != null &&
+                    newBlock.getPreviousHash().equals(previousBlock.getHash());
         }
         return false;
     }
 
     public boolean isBlockchainValid() {
-        List<Block> blockList= miningBlockService.getAll();
+        List<Block> blockList = miningBlockService.getAll();
         if (!isFirstBlockValid()) {
             return false;
         }

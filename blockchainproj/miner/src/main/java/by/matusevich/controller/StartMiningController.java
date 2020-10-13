@@ -19,7 +19,7 @@ public class StartMiningController {
     MiningBlockService miningBlockService;
     @Autowired
     MiningTransactionService miningTransactionService;
-
+    @Autowired
     Utils utils;
 
     private static final Logger log = LoggerFactory.getLogger(StartMiningController.class);
@@ -49,6 +49,8 @@ public class StartMiningController {
                         miningBlockService.createBlock(pendingTransaction));
 
                 flag = utils.isBlockchainValid();
+                log.info("blockchain is valid {}", flag);
+
             }
         }
     }
