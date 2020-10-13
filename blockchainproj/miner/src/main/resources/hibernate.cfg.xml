@@ -19,7 +19,6 @@
             org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         </property>
 
-
         <mapping class="by.matusevich.pojo.Transaction"/>
         <mapping class="by.matusevich.pojo.Wallet"/>
         <mapping class="by.matusevich.pojo.AppUser"/>

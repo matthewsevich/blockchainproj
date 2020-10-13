@@ -11,6 +11,11 @@
     homepage
 
     homepage ${homepage}
+
+    <strong>
+        <div>maximum transaction should be <100</div>
+        <div>if blockchain is empty "mine" button will create genesis transaction(5000)</div>
+    </strong>
     </div>
   </body>
 

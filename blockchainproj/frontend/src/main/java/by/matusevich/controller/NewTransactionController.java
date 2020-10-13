@@ -37,7 +37,7 @@ public class NewTransactionController {
             Model model) {
         log.info("New transaction: {}", transaction);
         if (((walletService.get(transaction.getReceiverId())) != null)
-                && ((walletService.getBalance(walletId)) > transaction.getValue())
+                && ((walletService.getBalance(walletId)) >= transaction.getValue())
                 && (transaction.getValue() < 100)
                 && (transactionService.createNewTransaction(walletId, transaction))) {
             return "redirect:/wallets/{walletId}/transactions.html";
