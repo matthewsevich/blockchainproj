@@ -25,7 +25,7 @@ public class AppUser {
     @Size(min = 4, max = 16, message = "required 4-16 characters")
     private String userName;
 
-    @PhoneNumber(message = "only BY phonenumbers starting with 33 , 44 , 29 , 25")
+    @PhoneNumber(message = "only BY phonenumbers XX-XXX-XXXX starting with 33 , 44 , 29 , 25")
     private String phoneNumber;
 
     @Email(message = "valid email plz")

@@ -14,7 +14,7 @@ public class PhoneValidator implements ConstraintValidator<PhoneNumber, String> 
         if(phoneNo == null){
             return false;
         }
-        //validate phone numbers of format "1234567890"
+        //validate phone numbers of format "123456789"
         if (phoneNo.matches("\\d{9}")) return true;
             //validating phone number with -, . or spaces
         else if(phoneNo.matches("\\d{2}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) return true;
