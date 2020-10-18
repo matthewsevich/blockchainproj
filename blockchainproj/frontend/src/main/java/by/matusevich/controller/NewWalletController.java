@@ -1,7 +1,6 @@
 package by.matusevich.controller;
 
 import by.matusevich.pojo.Wallet;
-import by.matusevich.service.AppUserService;
 import by.matusevich.service.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +21,6 @@ public class NewWalletController {
     @Autowired
     WalletService walletService;
 
-    @Autowired
-    AppUserService appUserService;
-
     @GetMapping
     public String showNewWallet() {
         return "new-wallet";
@@ -33,13 +29,8 @@ public class NewWalletController {
     @PostMapping
     public String createNewWallet(
             @ModelAttribute Wallet wallet,
-            Model model
-    ) {
+            Model model) {
         log.info("New Wallet: {}", wallet);
-        wallet.setOwnerId(
-                appUserService.findByUserName(
-                        AppUserService.getAppUserUserName())
-                        .getId());
         if (walletService.createNewWallet(wallet)) {
             return "redirect:wallets.html";
         } else {

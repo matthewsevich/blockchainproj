@@ -19,11 +19,9 @@ public class Blockchain {
 
     private static final Logger log = LoggerFactory.getLogger(Blockchain.class);
 
-    private boolean flag = false;
-
-    public void startMine(String walletId) throws InterruptedException {
+    public boolean startMine(String walletId) throws InterruptedException {
         log.info("start mining, walletId {}", walletId);
-        flag = true;
+        boolean flag = true;
 
         if ((miningBlockService.count() < 1) && (miningTransactionService.count() < 1)) {
             Transaction genesisTransaction = miningTransactionService.createGenesisTransaction(walletId);
@@ -43,8 +41,8 @@ public class Blockchain {
 
                 flag = utils.isBlockchainValid();
                 log.info("blockchain is valid {}", flag);
-
             }
         }
+        return flag;
     }
 }

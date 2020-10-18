@@ -16,6 +16,8 @@ public class TransactionService {
     @Autowired
     @Value("#{transactionRepository}")
     TransactionDao<Transaction> transactionRepository;
+    @Autowired
+    WalletService walletService;
 
     private static final Logger log = LoggerFactory.getLogger(TransactionService.class);
 
@@ -31,6 +33,14 @@ public class TransactionService {
         return true;
     }
 
+    public boolean validateTransaction(Transaction transaction, String walletId) {
+        return ((walletService.get(transaction.getReceiverId())) == null)
+                || (transaction.getValue() <= 0)
+                || ((walletService.getBalance(walletId)) < transaction.getValue())
+                || (transaction.getValue() >= 100)
+                || (!createNewTransaction(walletId, transaction));
+    }
+
     public Transaction get(String id) {
         return transactionRepository.read(Transaction.class, id);
     }
@@ -43,5 +53,13 @@ public class TransactionService {
         return transactionRepository.findAllTxByReceiverId(receiverId);
     }
 
+    public List<Transaction> getAllTransactions(String walletId) {
+        List<Transaction> allTransactions = getAllTxByReceiverId(walletId);
+        log.info("size {}", allTransactions.size());
+        allTransactions.addAll(getAllTxBySenderWalletId(walletId));
+        log.info("size {}", allTransactions.size());
+
+        return allTransactions;
+    }
 
 }

@@ -22,7 +22,14 @@ public class WalletService {
     @Autowired
     TransactionService transactionService;
 
+    @Autowired
+    AppUserService appUserService;
+
     public boolean createNewWallet(Wallet wallet) {
+        wallet.setOwnerId(
+                appUserService.findByUserName(
+                        AppUserService.getAppUserUserName())
+                        .getId());
         log.info("creating new wallet: {}", wallet);
         if (walletRepository.find(wallet.getWalletId()) != null) {
             return false;
@@ -49,6 +56,7 @@ public class WalletService {
     }
 
     public List<Wallet> getAll(String ownerId) {
+
         return walletRepository.findAll(ownerId);
     }
 

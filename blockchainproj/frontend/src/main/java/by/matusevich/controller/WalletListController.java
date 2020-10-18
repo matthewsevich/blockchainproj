@@ -30,7 +30,6 @@ public class WalletListController {
         String ownerId = appUserService.findByUserName(AppUserService.getAppUserUserName()).getId();
         List<Wallet> wallets = walletService.getAll(ownerId);
 
-        log.info("show wallet list by owner ID:{}", ownerId);
         modelAndView.setViewName("wallets");
         modelAndView.addObject("wallets", wallets);
         return modelAndView;
