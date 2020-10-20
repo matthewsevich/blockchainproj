@@ -34,7 +34,7 @@ public class TransactionService {
     }
 
     public boolean validateTransaction(Transaction transaction, String walletId) {
-        return ((walletService.get(transaction.getReceiverId())) == null)
+        return ((walletService.get(transaction.getReceiverId())) != null)
                 || (transaction.getValue() <= 0)
                 || ((walletService.getBalance(walletId)) < transaction.getValue())
                 || (transaction.getValue() >= 100)
