@@ -45,8 +45,4 @@ public class AppUserService {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    @Transactional
-    public boolean userExists(String appUserId) {
-        return appUserRepository.read(AppUser.class, appUserId) != null;
-    }
 }
