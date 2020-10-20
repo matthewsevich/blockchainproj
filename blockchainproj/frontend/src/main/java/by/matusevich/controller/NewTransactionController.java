@@ -26,10 +26,11 @@ public class NewTransactionController {
     @PostMapping
     public String createNewTransaction(
             @PathVariable String walletId,
+            String secretKey,
             @ModelAttribute Transaction transaction,
             Model model) {
         log.info("New transaction: {}", transaction);
-        if (transactionService.validateTransaction(transaction, walletId)) {
+        if (transactionService.validateTransaction(transaction, walletId, secretKey)) {
             return "redirect:/wallets/{walletId}/transactions.html";
         } else {
             model.addAttribute("errorMessage", "cannot create a new transaction");

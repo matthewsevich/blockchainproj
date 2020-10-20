@@ -39,8 +39,8 @@ public class WalletService {
     }
 
     public long getBalance(String walletId) {
-        int outcomeBalance = 0;
-        int incomeBalance = 0;
+        long outcomeBalance = 0;
+        long incomeBalance = 0;
 
         for (Transaction t : transactionService.getAllTxBySenderWalletId(walletId)) {
             outcomeBalance += t.getValue();
@@ -48,7 +48,7 @@ public class WalletService {
         for (Transaction t : transactionService.getAllTxByReceiverId(walletId)) {
             incomeBalance += t.getValue();
         }
-        return (long) incomeBalance - outcomeBalance;
+        return incomeBalance - outcomeBalance;
     }
 
     public Wallet get(String walletId) {

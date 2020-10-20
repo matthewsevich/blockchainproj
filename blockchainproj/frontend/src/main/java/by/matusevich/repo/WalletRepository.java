@@ -61,7 +61,7 @@ public class WalletRepository implements WalletDao<Wallet> {
     public List<Wallet> findAll(String searchStr) {
         return sessionFactory
                 .getCurrentSession()
-                .createQuery("from Wallet w where w.ownerId like :ownerId", Wallet.class)
+                .createQuery("from Wallet w where w.ownerId =:ownerId", Wallet.class)
                 .setParameter("ownerId", searchStr)
                 .list();
     }

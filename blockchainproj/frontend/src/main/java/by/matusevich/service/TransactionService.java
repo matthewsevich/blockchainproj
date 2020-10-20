@@ -33,12 +33,13 @@ public class TransactionService {
         return true;
     }
 
-    public boolean validateTransaction(Transaction transaction, String walletId) {
+    public boolean validateTransaction(Transaction transaction, String walletId, String secretKey) {
         return ((walletService.get(transaction.getReceiverId())) != null)
-                || (transaction.getValue() <= 0)
-                || ((walletService.getBalance(walletId)) < transaction.getValue())
-                || (transaction.getValue() >= 100)
-                || (!createNewTransaction(walletId, transaction));
+                && (transaction.getValue() >= 0)
+                && ((walletService.getBalance(walletId)) > transaction.getValue())
+                && (transaction.getValue() <= 100)
+                && (createNewTransaction(walletId, transaction))
+                && (walletService.get(walletId).getSecretKey().equals(secretKey));
     }
 
     public Transaction get(String id) {
