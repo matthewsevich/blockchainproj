@@ -14,7 +14,8 @@ public class Utils {
     @Autowired
     MiningBlockService miningBlockService;
 
-    public static String calculateHash(String ourBlockString) {
+    public static String calculateHash(Block block) {
+        String ourBlockString = block.getPreviousHash() + block.getTimestamp() + block.getTransaction() + block.getBlockId();
         if (ourBlockString != null) {
             MessageDigest digest;
             try {
