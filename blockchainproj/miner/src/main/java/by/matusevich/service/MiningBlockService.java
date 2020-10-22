@@ -23,7 +23,8 @@ public class MiningBlockService {
         genesisBlock.setPreviousHash("0");
         genesisBlock.setTimestamp(System.currentTimeMillis());
         genesisBlock.setTransaction(genesisTransaction.toString());
-        genesisBlock.setHash(Utils.calculateHash(genesisBlock.toString()));
+        genesisBlock.setHash(
+                Utils.calculateHash(genesisBlock));
         return genesisBlock;
     }
 
@@ -49,8 +50,7 @@ public class MiningBlockService {
             transactionRepo.save(transaction);
             block.setTransaction(transaction.toString());
             block.setHash(
-                    Utils.calculateHash(
-                            block.toString()));
+                    Utils.calculateHash(block));
         }
         return block;
     }
