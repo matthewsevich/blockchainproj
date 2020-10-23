@@ -20,11 +20,14 @@ public class Transaction {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     private String id;
 
+    //transaction's "home"
     private String walletId;
 
+    //transaction's "destination"
     private String receiverId;
 
     private int value;
 
+    //3 statuses "pending", "accepted", "genesis"
     private String status;
 }

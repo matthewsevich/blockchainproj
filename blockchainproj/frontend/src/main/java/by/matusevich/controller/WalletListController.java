@@ -17,6 +17,7 @@ import java.util.List;
 @Controller
 public class WalletListController {
 
+    //get all wallets owned by authenticated user
     private static final Logger log = LoggerFactory.getLogger(WalletListController.class);
 
     @Autowired

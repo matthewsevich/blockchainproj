@@ -1,7 +1,7 @@
 package by.matusevich.service;
 
-import by.matusevich.repo.TransactionDao;
 import by.matusevich.pojo.Transaction;
+import by.matusevich.repo.TransactionDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,9 @@ public class TransactionService {
         return true;
     }
 
+    /*
+        validate transaction to be positive less than 100 and wallet balance
+     */
     public boolean validateTransaction(Transaction transaction, String walletId) {
         return ((walletService.get(transaction.getReceiverId())) != null)
                 || (transaction.getValue() <= 0)
@@ -41,18 +44,18 @@ public class TransactionService {
                 || (!createNewTransaction(walletId, transaction));
     }
 
-    public Transaction get(String id) {
-        return transactionRepository.read(Transaction.class, id);
-    }
-
+    //get all transactions which are sended from this wallet
     public List<Transaction> getAllTxBySenderWalletId(String walletId) {
         return transactionRepository.findAllTxBySenderWalletId(walletId);
     }
 
+    //get all transactions which are received by this wallet
     public List<Transaction> getAllTxByReceiverId(String receiverId) {
         return transactionRepository.findAllTxByReceiverId(receiverId);
     }
 
+
+    //get all transactions which are from|to this wallet
     public List<Transaction> getAllTransactions(String walletId) {
         List<Transaction> allTransactions = getAllTxByReceiverId(walletId);
         log.info("size {}", allTransactions.size());

@@ -1,7 +1,7 @@
 package by.matusevich.service;
 
-import by.matusevich.repo.AppUserDao;
 import by.matusevich.pojo.AppUser;
+import by.matusevich.repo.AppUserDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,7 @@ public class AppUserService {
         return appUserRepository.find(username);
     }
 
+    //get authenticated user's username, to find by username and get his id next
     @Transactional
     public static String getAppUserUserName() {
         return SecurityContextHolder.getContext().getAuthentication().getName();

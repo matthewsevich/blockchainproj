@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Repository("transactionRepository")
@@ -22,14 +21,6 @@ public class TransactionRepository implements TransactionDao<Transaction> {
         sessionFactory
                 .getCurrentSession()
                 .saveOrUpdate(transaction);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Transaction read(Class clazz, Serializable id) {
-        return sessionFactory
-                .getCurrentSession()
-                .get(Transaction.class, id);
     }
 
     @Override

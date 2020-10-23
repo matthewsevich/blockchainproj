@@ -21,8 +21,12 @@ public class Blockchain {
 
     public boolean startMine(String walletId) throws InterruptedException {
         log.info("start mining, walletId {}", walletId);
-        boolean flag = true;
+        boolean flag = true;//flag - is mining running atm?
 
+        /*
+        checking if blockchain is empty
+        creating genesis transaction - saving transaction, then put it into genesis block and saving the block
+         */
         if ((miningBlockService.count() < 1) && (miningTransactionService.count() < 1)) {
             Transaction genesisTransaction = miningTransactionService.createGenesisTransaction(walletId);
             miningTransactionService.saveTransaction(genesisTransaction);
@@ -32,14 +36,15 @@ public class Blockchain {
 
         }
         while (flag) {
-            Thread.sleep(5000);
-            Transaction pendingTransaction = miningTransactionService.getPendingTransaction();
+            Thread.sleep(5000);//to slow down
+            Transaction pendingTransaction = miningTransactionService.getPendingTransaction();//getting not accepted(new transaction)
             log.info("pending Tx {}", pendingTransaction);
             if (pendingTransaction != null) {
+                //creating block and saving it
                 miningBlockService.saveBlock(
                         miningBlockService.createBlock(pendingTransaction));
 
-                flag = utils.isBlockchainValid();
+                flag = utils.isBlockchainValid();// if blockchain is corrupted or broken, flag set to false and mining will stop
                 log.info("blockchain is valid {}", flag);
             }
         }
