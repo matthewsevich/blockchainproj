@@ -33,16 +33,17 @@ public class TransactionService {
         return true;
     }
 
-    public boolean validateTransaction(Transaction transaction, String walletId) {
+    /*
+    validate transaction to be >0 and <=100, to be less than wallet balance
+    to have actual receiver(actual receiver's walletid) and checking secret key
+     */
+    public boolean validateTransaction(Transaction transaction, String walletId, String secretKey) {
         return ((walletService.get(transaction.getReceiverId())) != null)
-                || (transaction.getValue() <= 0)
-                || ((walletService.getBalance(walletId)) < transaction.getValue())
-                || (transaction.getValue() >= 100)
-                || (!createNewTransaction(walletId, transaction));
-    }
-
-    public Transaction get(String id) {
-        return transactionRepository.read(Transaction.class, id);
+                && (transaction.getValue() > 0)
+                && ((walletService.getBalance(walletId)) > transaction.getValue())
+                && (transaction.getValue() <= 100)
+                && (createNewTransaction(walletId, transaction))
+                && (walletService.get(walletId).getSecretKey().equals(secretKey));
     }
 
     public List<Transaction> getAllTxBySenderWalletId(String walletId) {
@@ -55,9 +56,9 @@ public class TransactionService {
 
     public List<Transaction> getAllTransactions(String walletId) {
         List<Transaction> allTransactions = getAllTxByReceiverId(walletId);
-        log.info("size {}", allTransactions.size());
+        log.info("size of list of received transactions {}", allTransactions.size());
         allTransactions.addAll(getAllTxBySenderWalletId(walletId));
-        log.info("size {}", allTransactions.size());
+        log.info("size of lsit of received transactions plus sended transactions {}", allTransactions.size());
 
         return allTransactions;
     }
