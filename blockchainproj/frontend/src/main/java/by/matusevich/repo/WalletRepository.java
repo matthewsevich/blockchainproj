@@ -26,22 +26,10 @@ public class WalletRepository implements WalletDao<Wallet> {
     }
 
     @Override
-    @Transactional
-    public void update(Wallet wallet) {
-        sessionFactory.getCurrentSession()
-                .update(wallet);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public Wallet read(Class clazz, Serializable id) {
         return (Wallet) sessionFactory.getCurrentSession()
                 .get(clazz, id);
-    }
-
-    @Override
-    public void delete(Wallet wallet) {
-
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)

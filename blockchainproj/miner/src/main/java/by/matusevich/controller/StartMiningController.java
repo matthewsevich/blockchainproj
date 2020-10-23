@@ -1,7 +1,6 @@
 package by.matusevich.controller;
 
 import by.matusevich.service.Blockchain;
-import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ public class StartMiningController {
 
     private static final Logger log = LoggerFactory.getLogger(StartMiningController.class);
 
-    @SneakyThrows
     @RequestMapping("/start/{walletId}")
     public ResponseEntity startMine(@PathVariable String walletId) throws InterruptedException {
         log.info("controller start mining for walletId {}", walletId);

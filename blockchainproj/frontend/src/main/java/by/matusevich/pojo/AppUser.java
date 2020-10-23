@@ -10,7 +10,10 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.List;
-
+/*
+allmost same thing like hello-spring project
+annotations to validate form's input
+*/
 @Data
 @Entity
 @NoArgsConstructor

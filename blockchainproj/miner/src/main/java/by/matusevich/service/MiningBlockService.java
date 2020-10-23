@@ -17,6 +17,14 @@ public class MiningBlockService {
     @Autowired
     TransactionRepo transactionRepo;
 
+    /*
+    createGenesisBlock - first(genesis) block is created if blockchain is empty, genesis transaction is stored inside
+    save - save
+    getLastBlock - getting last block via timestamp(block id was String initially, so it was easiest way to get last block)
+    getAll - just get all
+    findBlockById - just to get first block tbh :)
+     */
+
     public Block createGenesisBlock(Transaction genesisTransaction) {
         Block genesisBlock = new Block();
         genesisBlock.setBlockId(0);

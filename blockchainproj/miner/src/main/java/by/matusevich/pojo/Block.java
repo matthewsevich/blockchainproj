@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Block implements Serializable {
 
     @Id
-    private long blockId;
+    private long blockId; //was initially String and UUID, changed to long to simplify
 
     private String hash;
 
@@ -23,6 +23,6 @@ public class Block implements Serializable {
 
     private long timestamp;
 
-    private String transaction;
+    private String transaction; //1 transaction per block to simplify
 
 }

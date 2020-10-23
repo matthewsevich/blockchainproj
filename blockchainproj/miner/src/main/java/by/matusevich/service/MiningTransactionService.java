@@ -10,7 +10,13 @@ public class MiningTransactionService {
 
     @Autowired
     TransactionRepo transactionRepo;
-
+/*
+methods for Transactions in "MINING MODULE"
+    - createGenesisTransaction - creates first transaction if blockchain is empty
+    - save
+    - count to count amount of transactions
+    - getPendingTransaction - method to find transaction which is not writed to block yet
+ */
     public Transaction createGenesisTransaction(String walletId) {
         return new Transaction(null, null, walletId, 5000, "genesis");
     }

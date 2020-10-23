@@ -7,11 +7,7 @@ public interface WalletDao<T> {
 
     void create(T t);
 
-    void update(T t);
-
     T read(Class clazz, Serializable id);
-
-    void delete(T t);
 
     T find(String id);
 
