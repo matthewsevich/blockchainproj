@@ -25,6 +25,7 @@ public class WalletService {
     @Autowired
     AppUserService appUserService;
 
+    //create new wallet, ownerId is taken from security context holder
     public boolean createNewWallet(Wallet wallet) {
         wallet.setOwnerId(
                 appUserService.findByUserName(
@@ -54,12 +55,13 @@ public class WalletService {
         return incomeBalance - outcomeBalance;
     }
 
+    //get 1 wallet by Id
     public Wallet get(String walletId) {
-        return walletRepository.read(Wallet.class, walletId);
+        return walletRepository.find(walletId);
     }
 
+    //get list wallets by ownerId
     public List<Wallet> getAll(String ownerId) {
-
         return walletRepository.findAll(ownerId);
     }
 

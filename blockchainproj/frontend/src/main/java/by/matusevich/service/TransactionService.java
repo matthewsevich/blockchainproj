@@ -46,14 +46,17 @@ public class TransactionService {
                 && (walletService.get(walletId).getSecretKey().equals(secretKey));
     }
 
+    //get all transactions which were sent out of our wallet(walletId)
     public List<Transaction> getAllTxBySenderWalletId(String walletId) {
         return transactionRepository.findAllTxBySenderWalletId(walletId);
     }
 
+    //get all transactions which are received by this walletId
     public List<Transaction> getAllTxByReceiverId(String receiverId) {
         return transactionRepository.findAllTxByReceiverId(receiverId);
     }
 
+    //get all transactions, 2 previous methods combined
     public List<Transaction> getAllTransactions(String walletId) {
         List<Transaction> allTransactions = getAllTxByReceiverId(walletId);
         log.info("size of list of received transactions {}", allTransactions.size());

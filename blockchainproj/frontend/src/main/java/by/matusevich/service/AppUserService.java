@@ -24,6 +24,7 @@ public class AppUserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    //create user and encode his password
     @Transactional
     public void createNewUser(AppUser appUser) {
         final String encodedPassword = passwordEncoder.encode(appUser.getUserPassword());
@@ -35,6 +36,7 @@ public class AppUserService {
         appUserRepository.create(appUser);
     }
 
+    //find user by username
     @Transactional
     public AppUser findByUserName(String username) {
         return appUserRepository.find(username);

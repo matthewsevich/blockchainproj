@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MiningBlockService {
+public class BlockService {
 
     @Autowired
     BlockRepo blockRepo;
@@ -31,8 +31,7 @@ public class MiningBlockService {
         genesisBlock.setPreviousHash("0");
         genesisBlock.setTimestamp(System.currentTimeMillis());
         genesisBlock.setTransaction(genesisTransaction.toString());
-        genesisBlock.setHash(
-                Utils.calculateHash(genesisBlock));
+        genesisBlock.setNonce(0);
         return genesisBlock;
     }
 
@@ -53,12 +52,11 @@ public class MiningBlockService {
         block.setBlockId(getLastBlock().getBlockId() + 1);
         block.setPreviousHash(getLastBlock().getHash());
         block.setTimestamp(System.currentTimeMillis());
+        block.setNonce(0);
         if (transaction != null) {
             transaction.setStatus("Accepted");
             transactionRepo.save(transaction);
             block.setTransaction(transaction.toString());
-            block.setHash(
-                    Utils.calculateHash(block));
         }
         return block;
     }
@@ -70,4 +68,5 @@ public class MiningBlockService {
     public Block findBlockById(long id) {
         return blockRepo.findById(id).orElse(null);
     }
+
 }

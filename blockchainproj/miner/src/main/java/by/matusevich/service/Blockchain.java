@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 public class Blockchain {
 
     @Autowired
-    MiningBlockService miningBlockService;
+    BlockService blockService;
+    @Autowired
+    MiningBlock miningBlock;
     @Autowired
     MiningTransactionService miningTransactionService;
     @Autowired
@@ -19,30 +21,36 @@ public class Blockchain {
 
     private static final Logger log = LoggerFactory.getLogger(Blockchain.class);
 
+    private final int difficulty = 5;
+
     public boolean startMine(String walletId) throws InterruptedException {
         log.info("start mining, walletId {}", walletId);
         boolean flag = true;//flag - is mining running atm?
-
         /*
         checking if blockchain is empty
         creating genesis transaction - saving transaction, then put it into genesis block and saving the block
          */
-        if ((miningBlockService.count() < 1) && (miningTransactionService.count() < 1)) {
+        if ((blockService.count() < 1) && (miningTransactionService.count() < 1)) {
             Transaction genesisTransaction = miningTransactionService.createGenesisTransaction(walletId);
             miningTransactionService.saveTransaction(genesisTransaction);
 
-            Block genesisBlock = miningBlockService.createGenesisBlock(genesisTransaction);
-            miningBlockService.saveBlock(genesisBlock);
+            Block genesisBlock = blockService.createGenesisBlock(genesisTransaction);
+            miningBlock.mineBlock(genesisBlock, difficulty);
+
+            blockService.saveBlock(genesisBlock);
 
         }
         while (flag) {
             Thread.sleep(5000);//to slow down
-            Transaction pendingTransaction = miningTransactionService.getPendingTransaction();//getting not accepted(new transaction)
+            Transaction pendingTransaction = miningTransactionService.getPendingTransaction();
+            //getting not accepted(new transaction)
             log.info("pending Tx {}", pendingTransaction);
             if (pendingTransaction != null) {
-                //creating block and saving it
-                miningBlockService.saveBlock(
-                        miningBlockService.createBlock(pendingTransaction));
+                //creating block without nonce and hash, then we'll mine it and saving it
+                blockService.saveBlock(
+                        miningBlock.mineBlock(
+                                blockService.createBlock(pendingTransaction)
+                                , difficulty));
 
                 flag = utils.isBlockchainValid();// if blockchain is corrupted or broken, flag set to false and mining will stop
                 log.info("blockchain is valid {}", flag);

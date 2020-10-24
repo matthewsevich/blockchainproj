@@ -25,4 +25,5 @@ public class Block implements Serializable {
 
     private String transaction; //1 transaction per block to simplify
 
+    private int nonce;
 }

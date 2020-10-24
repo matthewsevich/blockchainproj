@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Component
@@ -23,13 +22,6 @@ public class WalletRepository implements WalletDao<Wallet> {
     public void create(Wallet wallet) {
         sessionFactory.getCurrentSession()
                 .saveOrUpdate(wallet);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Wallet read(Class clazz, Serializable id) {
-        return (Wallet) sessionFactory.getCurrentSession()
-                .get(clazz, id);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
