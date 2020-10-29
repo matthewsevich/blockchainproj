@@ -2,7 +2,6 @@ package by.matusevich.controller;
 
 import by.matusevich.pojo.AppUser;
 import by.matusevich.service.AppUserService;
-import by.matusevich.validator.RegisterValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ public class RegistrationWithValidationController {
 
     @Autowired
     AppUserService appUserService;
-
-    @Autowired
-    RegisterValidator validator;
 
     @GetMapping
     public String showRegisterPage(Model model) {

@@ -32,6 +32,7 @@ public class BlockService {
         genesisBlock.setTimestamp(System.currentTimeMillis());
         genesisBlock.setTransaction(genesisTransaction.toString());
         genesisBlock.setNonce(0);
+
         return genesisBlock;
     }
 

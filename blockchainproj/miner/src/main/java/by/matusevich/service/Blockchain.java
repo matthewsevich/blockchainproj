@@ -49,8 +49,8 @@ public class Blockchain {
                 //creating block without nonce and hash, then we'll mine it and saving it
                 blockService.saveBlock(
                         miningBlock.mineBlock(
-                                blockService.createBlock(pendingTransaction)
-                                , difficulty));
+                                blockService.createBlock(pendingTransaction),
+                                difficulty));
 
                 flag = utils.isBlockchainValid();// if blockchain is corrupted or broken, flag set to false and mining will stop
                 log.info("blockchain is valid {}", flag);
