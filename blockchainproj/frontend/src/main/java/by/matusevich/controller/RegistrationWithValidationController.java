@@ -29,6 +29,7 @@ public class RegistrationWithValidationController {
         return REGISTRATION_URL;
     }
 
+    //777
     @PostMapping
     public String registerNewUser(
             @Valid AppUser appUser,
