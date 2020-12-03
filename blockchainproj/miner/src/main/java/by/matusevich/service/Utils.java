@@ -15,7 +15,7 @@ public class Utils {
 
     @Autowired
     BlockService blockService;
-    private final static Logger log = LoggerFactory.getLogger(Utils.class);
+    private static final Logger log = LoggerFactory.getLogger(Utils.class);
 
     //we take our block and put it fields(5 out of 6) to string
     public static String blockToString(Block block) {
@@ -63,7 +63,6 @@ public class Utils {
 
             return false;
         }
-
         return true;
     }
 
@@ -113,5 +112,4 @@ public class Utils {
         builder.append("0".repeat(Math.max(0, length)));
         return builder.toString();
     }
-
 }

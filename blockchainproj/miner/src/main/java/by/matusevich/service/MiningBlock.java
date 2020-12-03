@@ -10,7 +10,6 @@ public class MiningBlock {
         int nonce = blockToMine.getNonce();
         blockToMine.setHash(Utils.calculateHash(blockToMine));
         while (!blockToMine.getHash().substring(0, difficulty).equals(Utils.zeros(difficulty))) {
-
             nonce++;
             blockToMine.setNonce(nonce);
             blockToMine.setHash(Utils.calculateHash(blockToMine));

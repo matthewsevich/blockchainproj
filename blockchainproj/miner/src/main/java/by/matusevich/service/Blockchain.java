@@ -45,6 +45,9 @@ public class Blockchain {
             Transaction pendingTransaction = miningTransactionService.getPendingTransaction();
             //getting not accepted(new transaction)
             log.info("pending Tx {}", pendingTransaction);
+            flag = utils.isBlockchainValid();// if blockchain is corrupted or broken, flag set to false and mining will stop
+            if (!flag)
+                return flag;
             if (pendingTransaction != null) {
                 //creating block without nonce and hash, then we'll mine it and saving it
                 blockService.saveBlock(
