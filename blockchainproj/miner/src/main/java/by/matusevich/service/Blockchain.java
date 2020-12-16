@@ -17,11 +17,11 @@ public class Blockchain {
     @Autowired
     MiningTransactionService miningTransactionService;
     @Autowired
-    Utils utils;
+    ValidateBlock validateBlock;
 
     private static final Logger log = LoggerFactory.getLogger(Blockchain.class);
 
-    private final int difficulty = 5;
+    private static final int difficulty = 5;
 
     public boolean startMine(String walletId) throws InterruptedException {
         log.info("start mining, walletId {}", walletId);
@@ -45,7 +45,7 @@ public class Blockchain {
             Transaction pendingTransaction = miningTransactionService.getPendingTransaction();
             //getting not accepted(new transaction)
             log.info("pending Tx {}", pendingTransaction);
-            flag = utils.isBlockchainValid();// if blockchain is corrupted or broken, flag set to false and mining will stop
+            flag = validateBlock.isBlockchainValid();// if blockchain is corrupted or broken, flag set to false and mining will stop
             if (!flag)
                 return flag;
             if (pendingTransaction != null) {
@@ -55,7 +55,7 @@ public class Blockchain {
                                 blockService.createBlock(pendingTransaction),
                                 difficulty));
 
-                flag = utils.isBlockchainValid();// if blockchain is corrupted or broken, flag set to false and mining will stop
+                flag = validateBlock.isBlockchainValid();// if blockchain is corrupted or broken, flag set to false and mining will stop
                 log.info("blockchain is valid {}", flag);
             }
         }
