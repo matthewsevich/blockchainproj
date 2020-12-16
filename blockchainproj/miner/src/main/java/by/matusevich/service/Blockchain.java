@@ -21,7 +21,7 @@ public class Blockchain {
 
     private static final Logger log = LoggerFactory.getLogger(Blockchain.class);
 
-    private static final int difficulty = 5;
+    private static final int DIFFICULTY = 5;
 
     public boolean startMine(String walletId) throws InterruptedException {
         log.info("start mining, walletId {}", walletId);
@@ -35,10 +35,8 @@ public class Blockchain {
             miningTransactionService.saveTransaction(genesisTransaction);
 
             Block genesisBlock = blockService.createGenesisBlock(genesisTransaction);
-            miningBlock.mineBlock(genesisBlock, difficulty);
-
+            miningBlock.mineBlock(genesisBlock, DIFFICULTY);
             blockService.saveBlock(genesisBlock);
-
         }
         while (flag) {
             Thread.sleep(5000);//to slow down
@@ -53,7 +51,7 @@ public class Blockchain {
                 blockService.saveBlock(
                         miningBlock.mineBlock(
                                 blockService.createBlock(pendingTransaction),
-                                difficulty));
+                                DIFFICULTY));
 
                 flag = validateBlock.isBlockchainValid();// if blockchain is corrupted or broken, flag set to false and mining will stop
                 log.info("blockchain is valid {}", flag);

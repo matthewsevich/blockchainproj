@@ -47,11 +47,8 @@ public class ValidateBlock {
                     !newBlock.getPreviousHash().equals(previousBlock.getHash())) {
                 return false;
             }
-            if (newBlock.getHash() == null ||
-                    !Utils.calculateHash(newBlock).equals(newBlock.getHash())) {
-                return false;
-            }
-            return true;
+            return newBlock.getHash() != null &&
+                    Utils.calculateHash(newBlock).equals(newBlock.getHash());
         }
         return false;
     }
