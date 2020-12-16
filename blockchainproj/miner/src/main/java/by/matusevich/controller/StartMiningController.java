@@ -23,7 +23,7 @@ public class StartMiningController {
             return "Mining is started";
         } else {
             log.error("mining stopped");
-            return "Mining is stopped";
+            return "Mining doesn't started";
         }
     }
 }
