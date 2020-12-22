@@ -16,7 +16,6 @@ public class ValidateBlock {
 
     private static final Logger log = LoggerFactory.getLogger(ValidateBlock.class);
 
-
     //block validation of genesis block
     public boolean isFirstBlockValid() {
         Block firstBlock = blockService.findBlockById(0);
